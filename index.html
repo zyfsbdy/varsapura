@@ -116,10 +116,11 @@
 
         .card1 { background: #e3f2fd; }
         .card2 { background: #e8f5e9; }
-        .card3 { background: #fff3e0; }
-        .card4 { background: #fce4ec; }
-        .card5 { background: #f3e5f5; }
-        .card6 { background: #e0f2f1; }
+        .card3 { background: #ffe0b2; } /* 群聊记录移到这里 */
+        .card4 { background: #fff3e0; }
+        .card5 { background: #fce4ec; }
+        .card6 { background: #f3e5f5; }
+        .card7 { background: #e0f2f1; }
 
         /* 联系管理 */
         .sub-section {
@@ -193,8 +194,8 @@
             <li>主页</li>
             <li>群规</li>
             <li>资料</li>
+            <li>群聊记录</li>
             <li>公告</li>
-            <li><a href1="chat.html">群聊记录</a ></li>
             <li>联系管理</li>
         </ul>
     </div>
@@ -222,22 +223,28 @@
                 <h3>资料下载</h3>
                 <p>群内共享文件、代码、资源、教程统一整理。</p >
             </div>
-            <div class="card card3" onclick="location.href='notice.html'">
+            <!-- 调整位置：群聊记录放在资料下载后 -->
+            <div class="card card3" onclick="location.href='chat.html'">
+                <div class="emoji">💬</div>
+                <h3>群聊记录</h3>
+                <p>各子群聊天记录归档，方便回溯与查阅重要信息</p >
+            </div>
+            <div class="card card4" onclick="location.href='notice.html'">
                 <div class="emoji">📢</div>
                 <h3>最新公告</h3>
                 <p>活动通知、规则更新、管理变动实时更新。</p >
             </div>
-            <div class="card card4" onclick="location.href='join.html'">
+            <div class="card card5" onclick="location.href='join.html'">
                 <div class="emoji">✅</div>
                 <h3>入群流程</h3>
                 <p>审核标准、邀请方式、注意事项一目了然。</p >
             </div>
-            <div class="card card5" onclick="location.href='faq.html'">
+            <div class="card card6" onclick="location.href='faq.html'">
                 <div class="emoji">❓</div>
                 <h3>常见问题</h3>
                 <p>新人疑问、功能使用、问题反馈快速解答。</p >
             </div>
-            <div class="card card6" onclick="location.href='#contact'">
+            <div class="card card7" onclick="location.href='#contact'">
                 <div class="emoji">👑</div>
                 <h3>联系管理</h3>
                 <p>群主与管理员联系方式，问题及时处理。</p >
@@ -246,7 +253,6 @@
     </div>
 </div>
 
-<!-- 只保留 联系管理 -->
 <section id="contact" class="sub-section">
     <div class="container">
         <h2 class="sub-title">👑 联系管理</h2>
@@ -259,13 +265,12 @@
     </div>
 </section>
 
-<!-- 👇 底部顺序和顶部完全一致 -->
 <div class="bottom-links">
     主页
     群规
     资料
-    公告
     群聊记录
+    公告
     联系管理
 </div>
 
@@ -276,5 +281,4 @@
 </footer>
 
 </body>
-
 </html>
