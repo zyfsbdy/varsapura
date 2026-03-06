@@ -116,13 +116,12 @@
 
         .card1 { background: #e3f2fd; }
         .card2 { background: #e8f5e9; }
-        .card3 { background: #ffe0b2; } /* 群聊记录移到这里 */
+        .card3 { background: #ffe0b2; }
         .card4 { background: #fff3e0; }
         .card5 { background: #fce4ec; }
         .card6 { background: #f3e5f5; }
         .card7 { background: #e0f2f1; }
 
-        /* 联系管理 */
         .sub-section {
             padding: 60px 0;
             background: #f8f9fa;
@@ -144,7 +143,6 @@
             font-size: 16px;
         }
 
-        /* 底部导航链接 */
         .bottom-links {
             text-align: center;
             padding: 20px 0;
@@ -192,10 +190,9 @@
         <div class="logo">Varsapura交流群信息整合</div>
         <ul class="menu">
             <li>主页</li>
-            <li>群规</li>
+            <li>最新资讯</li>
             <li>资料</li>
             <li>群聊记录</li>
-            <li>公告</li>
             <li>联系管理</li>
         </ul>
     </div>
@@ -204,7 +201,7 @@
 <div id="home" class="banner">
     <div class="container">
         <h1>Varsapura 交流群 🎉</h1>
-        <p>群规、公告、资料、重要信息一站式整合，手机电脑均可查看</p >
+        <p>资讯、资料、记录、重要信息一站式整合，手机电脑均可查看</p >
         查看整合信息
     </div>
 </div>
@@ -213,42 +210,43 @@
     <div class="container">
         <h2 class="title">信息整合板块 📌</h2>
         <div class="card-box">
-            <div class="card card1" onclick="location.href='rule.html'">
-                <div class="emoji">📜</div>
-                <h3>群规须知</h3>
-                <p>禁止广告、刷屏、引战、人身攻击，文明交流。</p >
+
+            <div id="news" class="card card1">
+                <div class="emoji">📰</div>
+                <h3>最新资讯</h3>
+                <p>群内重要动态、活动通知、更新内容实时发布</p >
             </div>
-            <div class="card card2" onclick="location.href='data.html'">
+
+            <div id="data" class="card card2">
                 <div class="emoji">📂</div>
                 <h3>资料下载</h3>
-                <p>群内共享文件、代码、资源、教程统一整理。</p >
+                <p>群内共享文件、资源、教程统一整理</p >
             </div>
-            <!-- 调整位置：群聊记录放在资料下载后 -->
-            <div class="card card3" onclick="location.href='chat.html'">
+
+            <div id="chat" class="card card3">
                 <div class="emoji">💬</div>
                 <h3>群聊记录</h3>
-                <p>各子群聊天记录归档，方便回溯与查阅重要信息</p >
+                <p>各子群聊天记录归档，方便回溯重要信息</p >
             </div>
-            <div class="card card4" onclick="location.href='notice.html'">
-                <div class="emoji">📢</div>
-                <h3>最新公告</h3>
-                <p>活动通知、规则更新、管理变动实时更新。</p >
-            </div>
-            <div class="card card5" onclick="location.href='join.html'">
+
+            <div class="card card4">
                 <div class="emoji">✅</div>
                 <h3>入群流程</h3>
-                <p>审核标准、邀请方式、注意事项一目了然。</p >
+                <p>审核标准、邀请方式、注意事项一目了然</p >
             </div>
-            <div class="card card6" onclick="location.href='faq.html'">
+
+            <div class="card card5">
                 <div class="emoji">❓</div>
                 <h3>常见问题</h3>
-                <p>新人疑问、功能使用、问题反馈快速解答。</p >
+                <p>新人疑问、功能使用、问题反馈快速解答</p >
             </div>
-            <div class="card card7" onclick="location.href='#contact'">
+
+            <div class="card card6" onclick="location.href='#contact'">
                 <div class="emoji">👑</div>
                 <h3>联系管理</h3>
-                <p>群主与管理员联系方式，问题及时处理。</p >
+                <p>群主与管理员联系方式，问题及时处理</p >
             </div>
+
         </div>
     </div>
 </div>
@@ -267,10 +265,9 @@
 
 <div class="bottom-links">
     主页
-    群规
+    最新资讯
     资料
     群聊记录
-    公告
     联系管理
 </div>
 
