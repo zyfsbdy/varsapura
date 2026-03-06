@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>群聊记录 | Varsapura交流群</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;scroll-behavior:smooth;}
+.container{width:95%;max-width:1200px;margin:0 auto;}
+nav{background:#2c3e50;padding:15px 0;position:sticky;top:0;z-index:99;}
+.nav-box{display:flex;justify-content:space-between;align-items:center;}
+.logo{color:#fff;font-size:22px;font-weight:bold;}
+.menu{display:flex;list-style:none;gap:30px;}
+.menu a{color:#fff;text-decoration:none;font-size:16px;transition:color 0.2s;}
+.menu a:hover{color:#3498db;}
+
+.search-bar{background:#f8f9fa;padding:15px 0;border-bottom:1px solid #eee;}
+.search-box{max-width:700px;margin:0 auto;position:relative;}
+.search-box input{width:100%;padding:12px 20px 12px 45px;border:1px solid #ddd;border-radius:30px;font-size:15px;outline:none;transition:all 0.2s;}
+.search-box input:focus{border-color:#3498db;box-shadow:0 0 0 3px rgba(52,152,219,0.15);}
+.search-box .icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:18px;color:#888;}
+
+.header{padding:50px 0 30px;text-align:center;}
+.header h1{font-size:32px;color:#2c3e50;}
+
+.card-box{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding-bottom:60px;}
+.card{width:260px;padding:25px 20px;border-radius:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;transition:transform 0.2s;}
+.card:hover{transform:translateY(-4px);}
+.card .emoji{font-size:32px;margin-bottom:10px;}
+.card h3{font-size:16px;margin-bottom:8px;color:#222;}
+.card p{font-size:14px;color:#555;}
+
+.c1{background:#e3f2fd;}.c2{background:#e8f5e9;}.c3{background:#fff3e0;}.c4{background:#fce4ec;}
+.c5{background:#f3e5f5;}.c6{background:#e0f2f1;}.c7{background:#edf7ed;}.c8{background:#fceabb;}
+.c9{background:#d1c4e9;}.c10{background:#ffe0b2;}
+.card.disabled{opacity:0.6;pointer-events:none;}
+
+.bottom-links{text-align:center;padding:20px;background:#f8f9fa;}
+.bottom-links a{margin:0 12px;text-decoration:none;color:#2c3e50;font-weight:bold;}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:20px 0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-box">
+    <div class="logo">Varsapura交流群</div>
+    <ul class="menu">
+      <li>主页</li>
+      <li>群规</li>
+      <li>资料</li>
+      <li>公告</li>
+      <li>群聊记录</li>
+      <li>联系管理</li>
+    </ul>
+  </div>
+</nav>
+
+<div class="search-bar">
+  <div class="container">
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="搜索关键词（文字/图片说明）..." id="searchInput">
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="container"><h1>💬 群聊记录总目录</h1></div>
+</div>
+
+<div class="container">
+  <div class="card-box">
+    <div class="card c1" onclick="location.href='chat-1.html'"><div class="emoji">1️⃣</div><h3>Varsapura雨之城主群</h3><p>点击查看记录</p ></div>
+    <div class="card c2" onclick="location.href='chat-2.html'"><div class="emoji">2️⃣</div><h3>①Varsapura雨之城</h3><p>点击查看记录</p ></div>
+    <div class="card c3" onclick="location.href='chat-3.html'"><div class="emoji">3️⃣</div><h3>②剧情讨论群</h3><p>点击查看记录</p ></div>
+    <div class="card c4" onclick="location.href='chat-4.html'"><div class="emoji">4️⃣</div><h3>③节奏群</h3><p>点击查看记录</p ></div>
+    <div class="card c5 disabled"><div class="emoji">5️⃣</div><h3>暂未开放</h3><p>敬请期待</p ></div>
+    <div class="card c6" onclick="location.href='chat-6.html'"><div class="emoji">6️⃣</div><h3>⑤吵架群</h3><p>点击查看记录</p ></div>
+    <div class="card c7" onclick="location.href='chat-7.html'"><div class="emoji">7️⃣</div><h3>⑥联机群</h3><p>点击查看记录</p ></div>
+    <div class="card c8 disabled"><div class="emoji">8️⃣</div><h3>暂未开放</h3><p>敬请期待</p ></div>
+    <div class="card c9" onclick="location.href='chat-9.html'"><div class="emoji">9️⃣</div><h3>⑨火种局</h3><p>点击查看记录</p ></div>
+    <div class="card c10" onclick="location.href='chat-10.html'"><div class="emoji">🔟</div><h3>⑦备用群</h3><p>点击查看记录</p ></div>
+  </div>
+</div>
+
+<div class="bottom-links">
+  主页
+  群规
+  资料
+  公告
+  群聊记录
+  联系管理
+</div>
+
+<footer>
+  <div class="container"><p>© 2026 Varsapura交流群</p ></div>
+</footer>
+
+<script>
+const s = document.getElementById('searchInput');
+s.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const v = s.value.trim();
+    if(v) location.href='search.html?kw='+encodeURIComponent(v);
+  }
+});
+</script>
+</body>
+</html>
