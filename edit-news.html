@@ -38,6 +38,7 @@ body{background:#f5f7fa;color:#333}
   box-shadow:0 1px 3px rgba(0,0,0,0.04);
 }
 .news-title{font-size:16px;font-weight:600;margin-bottom:8px}
+.news-author{font-size:12px;color:#0070f3;margin-bottom:4px}
 .news-date{font-size:12px;color:#999;margin-bottom:4px}
 .news-edit-date{font-size:12px;color:#777;margin-bottom:12px}
 .news-content{font-size:14px;line-height:1.6;color:#555;margin-bottom:14px}
@@ -59,6 +60,7 @@ body{background:#f5f7fa;color:#333}
 <div class="publish-box">
   <div class="publish-card">
     <input type="text" id="title" placeholder="请输入资讯标题">
+    <input type="text" id="author" placeholder="请输入作者">
     <textarea id="content" placeholder="请输入资讯内容"></textarea>
     <input type="file" id="img" accept="image/*">
     <input type="date" id="publishDate" min="2025-10-01">
@@ -69,7 +71,6 @@ body{background:#f5f7fa;color:#333}
 <div class="container" id="newsList"></div>
 
 <script>
-// 获取当前日期 YYYY-MM-DD
 function getToday() {
   const d = new Date();
   const y = d.getFullYear();
@@ -86,9 +87,9 @@ function saveNews(list) {
   localStorage.setItem('newsList', JSON.stringify(list));
 }
 
-// 发布
 function publishNews() {
   const title = document.getElementById('title').value.trim();
+  const author = document.getElementById('author').value.trim();
   const content = document.getElementById('content').value.trim();
   const imgFile = document.getElementById('img').files[0];
   const publishDate = document.getElementById('publishDate').value || getToday();
@@ -101,6 +102,7 @@ function publishNews() {
   const newsItem = {
     id: Date.now(),
     title: title,
+    author: author,
     content: content,
     publishDate: publishDate,
     editDate: getToday(),
@@ -111,8 +113,8 @@ function publishNews() {
   list.unshift(newsItem);
   saveNews(list);
 
-  // 清空表单
   document.getElementById('title').value = '';
+  document.getElementById('author').value = '';
   document.getElementById('content').value = '';
   document.getElementById('img').value = '';
   document.getElementById('publishDate').value = '';
@@ -120,13 +122,13 @@ function publishNews() {
   renderNews();
 }
 
-// 渲染列表
 function renderNews() {
   const list = getNews();
   const container = document.getElementById('newsList');
   container.innerHTML = list.map(item => `
     <div class="news-card">
       <div class="news-title">${item.title}</div>
+      <div class="news-author">作者：${item.author || '未署名'}</div>
       <div class="news-date">发布：${item.publishDate}</div>
       <div class="news-edit-date">编辑：${item.editDate}</div>
       <div class="news-content">${item.content}</div>
@@ -136,7 +138,6 @@ function renderNews() {
   `).join('');
 }
 
-// 删除
 function delNews(id) {
   let list = getNews();
   list = list.filter(item => item.id !== id);
