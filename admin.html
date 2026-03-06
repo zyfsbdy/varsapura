@@ -36,24 +36,25 @@ checkAdmin();
 
 // 渲染邀请码
 function renderInvites() {
-  const invites = getInvites();
-  let html = `<table><tr><th>邀请码</th><th>状态</th><th>使用者</th><th>时间</th></tr>`;
-  invites.forEach(item => {
-    const status = item.used ? '<span class="used">已使用</span>' : '<span class="unused">可用</span>';
-    html += `<tr>
-      <td>${item.code}</td>
-      <td>${status}</td>
-      <td>${item.usedBy || '-'}</td>
-      <td>${item.usedTime || '-'}</td>
-    </tr>`;
-  });
-  html += `</table>`;
+  var invites = getInvites();
+  var html = '<table><tr><th>邀请码</th><th>状态</th><th>使用者</th><th>时间</th></tr>';
+  for (var i = 0; i < invites.length; i++) {
+    var item = invites[i];
+    var status = item.used ? '<span class="used">已使用</span>' : '<span class="unused">可用</span>';
+    html += '<tr>' +
+      '<td>' + item.code + '</td>' +
+      '<td>' + status + '</td>' +
+      '<td>' + (item.usedBy || '-') + '</td>' +
+      '<td>' + (item.usedTime || '-') + '</td>' +
+    '</tr>';
+  }
+  html += '</table>';
   document.getElementById('inviteList').innerHTML = html;
 }
 
 // 生成1个
 function genOne() {
-  const list = getInvites();
+  var list = getInvites();
   list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
   saveInvites(list);
   renderInvites();
@@ -61,8 +62,8 @@ function genOne() {
 
 // 生成5个
 function genFive() {
-  const list = getInvites();
-  for(let i=0;i<5;i++){
+  var list = getInvites();
+  for(var i=0;i<5;i++){
     list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
   }
   saveInvites(list);
@@ -71,25 +72,26 @@ function genFive() {
 
 // 渲染用户
 function renderUsers() {
-  const users = getUsers();
-  let html = `<table><tr><th>用户名</th><th>昵称</th><th>权限</th><th>操作</th></tr>`;
-  users.forEach((u, index) => {
-    const role = u.role === 'admin' ? '<span class="admin">管理员</span>' : '用户';
-    html += `<tr>
-      <td>${u.username}</td>
-      <td>${u.nickname}</td>
-      <td>${role}</td>
-      <td><button class="del" onclick="delUser(${index})">删除用户</button></td>
-    </tr>`;
-  });
-  html += `</table>`;
+  var users = getUsers();
+  var html = '<table><tr><th>用户名</th><th>昵称</th><th>权限</th><th>操作</th></tr>';
+  for (var i = 0; i < users.length; i++) {
+    var u = users[i];
+    var role = u.role === 'admin' ? '<span class="admin">管理员</span>' : '用户';
+    html += '<tr>' +
+      '<td>' + u.username + '</td>' +
+      '<td>' + u.nickname + '</td>' +
+      '<td>' + role + '</td>' +
+      '<td><button class="del" onclick="delUser(' + i + ')">删除用户</button></td>' +
+    '</tr>';
+  }
+  html += '</table>';
   document.getElementById('userList').innerHTML = html;
 }
 
 // 删除用户
 function delUser(index) {
   if(!confirm('确定删除此用户？')) return;
-  const users = getUsers();
+  var users = getUsers();
   users.splice(index, 1);
   saveUsers(users);
   renderUsers();
@@ -97,24 +99,25 @@ function delUser(index) {
 
 // 渲染帖子
 function renderNews() {
-  const news = getNews();
-  let html = `<table><tr><th>标题</th><th>发布者</th><th>时间</th><th>操作</th></tr>`;
-  news.forEach((item, index) => {
-    html += `<tr>
-      <td>${item.title}</td>
-      <td>${item.username}</td>
-      <td>${item.time}</td>
-      <td><button class="del" onclick="delNews(${index})">删除帖子</button></td>
-    </tr>`;
-  });
-  html += `</table>`;
+  var news = getNews();
+  var html = '<table><tr><th>标题</th><th>发布者</th><th>时间</th><th>操作</th></tr>';
+  for (var i = 0; i < news.length; i++) {
+    var item = news[i];
+    html += '<tr>' +
+      '<td>' + item.title + '</td>' +
+      '<td>' + item.username + '</td>' +
+      '<td>' + item.time + '</td>' +
+      '<td><button class="del" onclick="delNews(' + i + ')">删除帖子</button></td>' +
+    '</tr>';
+  }
+  html += '</table>';
   document.getElementById('newsList').innerHTML = html;
 }
 
 // 删除帖子
 function delNews(index) {
   if(!confirm('确定删除此帖子？')) return;
-  const news = getNews();
+  var news = getNews();
   news.splice(index, 1);
   saveNews(news);
   renderNews();
