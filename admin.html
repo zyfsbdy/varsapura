@@ -55,7 +55,8 @@ function renderInvites() {
 function genOne() {
   const list = getInvites();
   list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
-  saveInvites(list); renderInvites();
+  saveInvites(list);
+  renderInvites();
 }
 
 // 生成5个
@@ -64,10 +65,11 @@ function genFive() {
   for(let i=0;i<5;i++){
     list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
   }
-  saveInvites(list); renderInvites();
+  saveInvites(list);
+  renderInvites();
 }
 
-// 渲染用户列表 + 删除
+// 渲染用户
 function renderUsers() {
   const users = getUsers();
   let html = `<table><tr><th>用户名</th><th>昵称</th><th>权限</th><th>操作</th></tr>`;
@@ -93,7 +95,7 @@ function delUser(index) {
   renderUsers();
 }
 
-// 渲染帖子 + 删除
+// 渲染帖子
 function renderNews() {
   const news = getNews();
   let html = `<table><tr><th>标题</th><th>发布者</th><th>时间</th><th>操作</th></tr>`;
