@@ -18,11 +18,11 @@ button{width:100%;padding:12px;background:#0070f3;color:white;border:none;border
 </div>
 
 <script>
-// 自动创建管理员
-function initAdmin() {
-  let users = JSON.parse(localStorage.getItem('users') || '[]');
+// 强制重置管理员账号
+function forceAdmin() {
+  let users = []; // 直接清空旧用户
 
-  const adminAccount = {
+  let admin = {
     username: "aizaiyudu",
     nickname: "群主管理员",
     password: "Varsapura2027",
@@ -30,23 +30,29 @@ function initAdmin() {
     role: "admin"
   };
 
-  const exists = users.some(u => u.username === 'aizaiyudu');
-  if (!exists) {
-    users.push(adminAccount);
-    localStorage.setItem('users', JSON.stringify(users));
-  }
+  users.push(admin);
+  localStorage.setItem('users', JSON.stringify(users));
 }
 
-initAdmin();
+// 一进页面就强制重建账号
+forceAdmin();
 
-// 登录逻辑
 function login() {
   const username = document.getElementById('user').value.trim();
   const password = document.getElementById('pwd').value.trim();
-  const users = getUsers();
+
+  const users = JSON.parse(localStorage.getItem('users'));
   const u = users.find(x => x.username === username && x.password === password);
-  if (!u) return alert('账号或密码错误');
-  if (u.status !== 'passed') return alert('账号待审核');
+
+  if (!u) {
+    alert("账号或密码错误");
+    return;
+  }
+  if (u.status !== 'passed') {
+    alert("账号待审核");
+    return;
+  }
+
   localStorage.setItem('currentUser', JSON.stringify(u));
   location.href = 'index.html';
 }
