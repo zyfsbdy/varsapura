@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varsapura交流群信息整合</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .nav-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        .menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .menu li a:hover {
+            color: #3498db;
+        }
+
+        .banner {
+            height: 500px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .banner p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .btn {
+            padding: 12px 30px;
+            background: #fff;
+            color: #333;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+        .title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+        .card-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .card {
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+        .emoji {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .card1 { background: #e3f2fd; }
+        .card2 { background: #e8f5e9; }
+        .card3 { background: #fff3e0; }
+        .card4 { background: #fce4ec; }
+        .card5 { background: #f3e5f5; }
+        .card6 { background: #e0f2f1; }
+
+        /* 联系管理 */
+        .sub-section {
+            padding: 60px 0;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        .sub-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .sub-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* 底部导航链接 */
+        .bottom-links {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 16px;
+            background: #fff;
+        }
+        .bottom-links a {
+            margin: 0 15px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bottom-links a:hover {
+            color: #3498db;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        @media (max-width: 992px) {
+            .container { width: 95%; }
+            .banner { height: 400px; }
+            .banner h1 { font-size: 36px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-box { flex-direction: column; gap: 15px; }
+            .menu { gap: 15px; }
+            .banner { height: 350px; padding: 0 20px; }
+            .banner h1 { font-size: 28px; }
+            .card { width: 100%; }
+            .sub-content { padding: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="container nav-box">
+        <div class="logo">Varsapura交流群信息整合</div>
+        <ul class="menu">
+            <li>主页</li>
+            <li>群规</li>
+            <li>资料</li>
+            <li>公告</li>
+            <li>群聊记录</li>
+            <li>联系管理</li>
+        </ul>
+    </div>
+</nav>
+
+<div id="home" class="banner">
+    <div class="container">
+        <h1>Varsapura 交流群 🎉</h1>
+        <p>群规、公告、资料、重要信息一站式整合，手机电脑均可查看</p >
+        查看整合信息
+    </div>
+</div>
+
+<div id="info" class="section">
+    <div class="container">
+        <h2 class="title">信息整合板块 📌</h2>
+        <div class="card-box">
+            <div class="card card1" onclick="location.href='rule.html'">
+                <div class="emoji">📜</div>
+                <h3>群规须知</h3>
+                <p>禁止广告、刷屏、引战、人身攻击，文明交流。</p >
+            </div>
+            <div class="card card2" onclick="location.href='data.html'">
+                <div class="emoji">📂</div>
+                <h3>资料下载</h3>
+                <p>群内共享文件、代码、资源、教程统一整理。</p >
+            </div>
+            <div class="card card3" onclick="location.href='notice.html'">
+                <div class="emoji">📢</div>
+                <h3>最新公告</h3>
+                <p>活动通知、规则更新、管理变动实时更新。</p >
+            </div>
+            <div class="card card4" onclick="location.href='join.html'">
+                <div class="emoji">✅</div>
+                <h3>入群流程</h3>
+                <p>审核标准、邀请方式、注意事项一目了然。</p >
+            </div>
+            <div class="card card5" onclick="location.href='faq.html'">
+                <div class="emoji">❓</div>
+                <h3>常见问题</h3>
+                <p>新人疑问、功能使用、问题反馈快速解答。</p >
+            </div>
+            <div class="card card6" onclick="location.href='#contact'">
+                <div class="emoji">👑</div>
+                <h3>联系管理</h3>
+                <p>群主与管理员联系方式，问题及时处理。</p >
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 只保留 联系管理 -->
+<section id="contact" class="sub-section">
+    <div class="container">
+        <h2 class="sub-title">👑 联系管理</h2>
+        <div class="sub-content">
+            如有问题、建议、投诉、需要帮助，请联系：<br><br>
+            • 群主：XXX<br>
+            • 管理员：XXX<br>
+            • 反馈方式：群内@管理员 或 私聊
+        </div>
+    </div>
+</section>
+
+<!-- 👇 底部顺序和顶部完全一致 -->
+<div class="bottom-links">
+    主页
+    群规
+    资料
+    公告
+    群聊记录
+    联系管理
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Varsapura交流群 | 信息整合站 · 仅内部使用</p >
+    </div>
+</footer>
+
+</body>
+</html>
