@@ -23,6 +23,14 @@ function getCurrentUser() {
   return JSON.parse(localStorage.getItem('currentUser') || null);
 }
 
+function getNews() {
+  return JSON.parse(localStorage.getItem('news') || '[]');
+}
+
+function saveNews(news) {
+  localStorage.setItem('news', JSON.stringify(news));
+}
+
 // 全站最强制锁：未登录 → 直接踢去登录页
 function checkLogin() {
   const u = getCurrentUser();
