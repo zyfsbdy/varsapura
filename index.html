@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varsapura交流群信息整合</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;scroll-behavior:smooth}
+.container{width:1200px;margin:0 auto;padding:0 15px}
+nav{background:#2c3e50;padding:15px 0;position:sticky;top:0;z-index:99}
+.nav-box{display:flex;justify-content:space-between;align-items:center}
+.logo{color:#fff;font-size:22px;font-weight:bold}
+.menu{display:flex;list-style:none;gap:30px}
+.menu li a{color:#fff;text-decoration:none;font-size:16px}
+.menu li a:hover{color:#3498db}
+.banner{height:500px;background:linear-gradient(to right,#3498db,#2ecc71);color:#fff;display:flex;align-items:center;text-align:center}
+.banner h1{font-size:48px;margin-bottom:20px}
+.banner p{font-size:18px;max-width:700px;margin:0 auto 30px}
+.btn{padding:12px 30px;background:#fff;color:#333;border-radius:50px;text-decoration:none;font-weight:bold;display:inline-block}
+.section{padding:80px 0}
+.title{text-align:center;font-size:32px;margin-bottom:50px;color:#2c3e50}
+.card-box{display:flex;flex-wrap:wrap;gap:30px;justify-content:center}
+.card{width:350px;padding:30px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);text-align:center;color:#2c3e50;cursor:pointer}
+.card h3{font-size:22px;margin:10px 0}
+.emoji{font-size:36px;margin-bottom:10px}
+.card1{background:#e3f2fd}
+.card2{background:#e8f5e9}
+.card3{background:#ffe0b2}
+.card4{background:#fff3e0}
+.card5{background:#fce4ec}
+.card6{background:#f3e5f5}
+.sub-section{padding:60px 0;background:#f8f9fa;border-top:1px solid #eee}
+.sub-title{font-size:28px;margin-bottom:30px;color:#2c3e50;text-align:center}
+.sub-content{max-width:800px;margin:0 auto;background:#fff;padding:30px;border-radius:12px;line-height:1.8}
+.bottom-links{text-align:center;padding:20px 0;background:#fff}
+.bottom-links a{margin:0 15px;color:#2c3e50;font-weight:bold}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:30px 0}
+@media (max-width:992px){.container{width:95%}.banner{height:400px}.banner h1{font-size:36px}}
+@media (max-width:768px){.nav-box{flex-direction:column;gap:15px}.menu{gap:15px}.banner{height:350px}.card{width:100%}}
+</style>
+</head>
+<body>
+
+<script src="invite-code.js"></script>
+<script>
+function go(page) {
+  if (!getCurrentUser()) {
+    alert("请登录后使用");
+    location.href = "login.html";
+    return;
+  }
+  location.href = page;
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.onclick = e => {
+    if (!getCurrentUser()) {
+      e.preventDefault();
+      alert("请登录后使用");
+      location.href = "login.html";
+    }
+  };
+});
+</script>
+
+<nav>
+  <div class="container nav-box">
+    <div class="logo">Varsapura交流群</div>
+    <ul class="menu">
+      <li>主页</li>
+      <li><a onclick="go('news.html')">最新资讯</a ></li>
+      <li><a onclick="go('#')">资料</a ></li>
+      <li><a onclick="go('#')">群聊记录</a ></li>
+      <li><a onclick="go('#contact')">联系管理</a ></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="banner"><div class="container">
+  <h1>Varsapura 交流群</h1>
+  <p>资讯、资料、记录一站式整合</p >
+  查看整合信息
+</div></div>
+
+<div id="info" class="section"><div class="container">
+  <h2 class="title">信息整合板块</h2>
+  <div class="card-box">
+    <div class="card card1" onclick="go('news.html')"><div class="emoji">📰</div><h3>最新资讯</h3><p>动态通知实时发布</p ></div>
+    <div class="card card2" onclick="go('data.html')"><div class="emoji">📂</div><h3>资料下载</h3><p>群文件资源整理</p ></div>
+    <div class="card card3" onclick="go('chat.html')"><div class="emoji">💬</div><h3>群聊记录</h3><p>重要信息回溯</p ></div>
+    <div class="card card4" onclick="go('#')"><div class="emoji">✅</div><h3>入群流程</h3><p>审核标准说明</p ></div>
+    <div class="card card5" onclick="go('#')"><div class="emoji">❓</div><h3>常见问题</h3><p>新人疑问解答</p ></div>
+    <div class="card card6" onclick="go('#contact')"><div class="emoji">👑</div><h3>联系管理</h3><p>管理员联系方式</p ></div>
+  </div>
+</div></div>
+
+<section id="contact" class="sub-section"><div class="container">
+  <h2 class="sub-title">联系管理</h2>
+  <div class="sub-content">
+    如有问题请联系：<br><br>
+    • 群主：XXX<br>
+    • 管理员：XXX
+  </div>
+</div></section>
+
+<div class="bottom-links">
+  <a onclick="go('news.html')">最新资讯</a >
+  <a onclick="go('#contact')">联系管理</a >
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Varsapura交流群 | 仅内部使用</p >
+  </div>
+</footer>
+</body>
+</html>
