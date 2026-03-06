@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>注册</title>
+<style>
+body{margin:0;height:100vh;display:grid;place-items:center;background:#f6f7fb}
+.box{width:100%;max-width:400px;background:#fff;padding:30px;border-radius:16px}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+button{width:100%;padding:12px;background:#0070f3;color:white;border:none;border-radius:8px}
+</style>
+<script src="invite-code.js"></script>
+<div class="box">
+  <h3>注册</h3>
+  <input id="user" placeholder="用户名">
+  <input id="nick" placeholder="昵称">
+  <input id="pwd" type="password" placeholder="密码">
+  <input id="code" placeholder="邀请码">
+  <button onclick="reg()">注册</button>
+</div>
+<script>
+function reg() {
+  const user = document.getElementById('user').value.trim();
+  const nick = document.getElementById('nick').value.trim();
+  const pwd = document.getElementById('pwd').value.trim();
+  const code = document.getElementById('code').value.trim();
+  if (!user || !nick || !pwd || !code) return alert('请填写完整');
+
+  const users = getUsers();
+  if (users.some(x => x.username === user)) return alert('用户名已存在');
+
+  const invites = getInvites();
+  const find = invites.find(x => x.code === code && !x.used);
+  if (!find) return alert('邀请码无效或已使用');
+
+  find.used = true;
+  saveInvites(invites);
+  users.push({ username: user, nickname: nick, password: pwd, status: 'pending', role: 'user' });
+  saveUsers(users);
+  alert('注册成功，请等待管理员审核');
+  location.href = 'login.html';
+}
+</script>
