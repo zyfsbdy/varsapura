@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>管理后台</title>
+<style>
+body{background:#f6f7fb;padding:20px;font-family:system-ui}
+.box{background:#fff;padding:20px;border-radius:12px;margin-bottom:12px}
+button{padding:8px 14px;background:#0070f3;color:white;border:none;border-radius:6px;margin-right:6px}
+</style>
+<script src="invite-code.js"></script>
+<script>checkAdmin()</script>
+<div class="box">
+  <h3>邀请码</h3>
+  <button onclick="gen(1)">生成1个</button>
+  <button onclick="gen(5)">生成5个</button>
+  <div id="inviteList" style="margin-top:10px"></div>
+</div>
+<div class="box">
+  <h3>用户审核</h3>
+  <div id="userList"></div>
+</div>
+<script>
+function gen(n) {
+  const list = getInvites();
+  for(let i=0;i<n;i++) list.push({code:genInviteCode(),used:false});
+  saveInvites(list); render();
+}
+function pass(user) {
+  const users = getUsers();
+  const u = users.find(x=>x.username===user);
+  if(u) u.status = 'passed';
+  saveUsers(users); render();
+}
+function render() {
+  document.getElementById('inviteList').innerHTML = getInvites().map(i=>
+    `<div>${i.code} — ${i.used?'已使用':'可使用'}</div>`
+  ).join('');
+  document.getElementById('userList').innerHTML = getUsers().map(u=>
+    `<div>${u.username} | ${u.nickname} | ${u.status} ${u.status==='pending'?'<button onclick="pass(\''+u.username+'\')">通过</button>':''}</div>`
+  ).join('');
+}
+render();
+</script>
