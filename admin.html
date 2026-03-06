@@ -1,42 +1,124 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<title>管理后台</title>
+<title>管理员后台</title>
 <style>
-body{background:#f6f7fb;padding:20px;font-family:system-ui}
-.box{background:#fff;padding:20px;border-radius:12px;margin-bottom:12px}
-button{padding:8px 14px;background:#0070f3;color:white;border:none;border-radius:6px;margin-right:6px}
+body{margin:0;background:#f6f7fb;padding:20px;font-family:Arial}
+.box{background:#fff;border-radius:12px;padding:20px;margin-bottom:20px}
+button{padding:8px 12px;background:#0070f3;color:white;border:none;border-radius:6px;margin-right:6px;cursor:pointer}
+.del{background:#e53935}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+td,th{padding:10px;text-align:left;border-bottom:1px solid #eee}
+.used{color:red}
+.unused{color:green}
+.admin{color:#ffc107;font-weight:bold}
 </style>
 <script src="invite-code.js"></script>
-<script>checkAdmin()</script>
+
 <div class="box">
-  <h3>邀请码</h3>
-  <button onclick="gen(1)">生成1个</button>
-  <button onclick="gen(5)">生成5个</button>
-  <div id="inviteList" style="margin-top:10px"></div>
+  <h3>邀请码管理</h3>
+  <button onclick="genOne()">生成1个</button>
+  <button onclick="genFive()">生成5个</button>
+  <div id="inviteList"></div>
 </div>
+
 <div class="box">
-  <h3>用户审核</h3>
+  <h3>用户管理（可删除）</h3>
   <div id="userList"></div>
 </div>
+
+<div class="box">
+  <h3>帖子管理（可删除）</h3>
+  <div id="newsList"></div>
+</div>
+
 <script>
-function gen(n) {
+checkAdmin();
+
+// 渲染邀请码
+function renderInvites() {
+  const invites = getInvites();
+  let html = `<table><tr><th>邀请码</th><th>状态</th><th>使用者</th><th>时间</th></tr>`;
+  invites.forEach(item => {
+    const status = item.used ? '<span class="used">已使用</span>' : '<span class="unused">可用</span>';
+    html += `<tr>
+      <td>${item.code}</td>
+      <td>${status}</td>
+      <td>${item.usedBy || '-'}</td>
+      <td>${item.usedTime || '-'}</td>
+    </tr>`;
+  });
+  html += `</table>`;
+  document.getElementById('inviteList').innerHTML = html;
+}
+
+// 生成1个
+function genOne() {
   const list = getInvites();
-  for(let i=0;i<n;i++) list.push({code:genInviteCode(),used:false});
-  saveInvites(list); render();
+  list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
+  saveInvites(list); renderInvites();
 }
-function pass(user) {
+
+// 生成5个
+function genFive() {
+  const list = getInvites();
+  for(let i=0;i<5;i++){
+    list.push({ code: genInviteCode(), used: false, usedBy: '', usedTime: '' });
+  }
+  saveInvites(list); renderInvites();
+}
+
+// 渲染用户列表 + 删除
+function renderUsers() {
   const users = getUsers();
-  const u = users.find(x=>x.username===user);
-  if(u) u.status = 'passed';
-  saveUsers(users); render();
+  let html = `<table><tr><th>用户名</th><th>昵称</th><th>权限</th><th>操作</th></tr>`;
+  users.forEach((u, index) => {
+    const role = u.role === 'admin' ? '<span class="admin">管理员</span>' : '用户';
+    html += `<tr>
+      <td>${u.username}</td>
+      <td>${u.nickname}</td>
+      <td>${role}</td>
+      <td><button class="del" onclick="delUser(${index})">删除用户</button></td>
+    </tr>`;
+  });
+  html += `</table>`;
+  document.getElementById('userList').innerHTML = html;
 }
-function render() {
-  document.getElementById('inviteList').innerHTML = getInvites().map(i=>
-    `<div>${i.code} — ${i.used?'已使用':'可使用'}</div>`
-  ).join('');
-  document.getElementById('userList').innerHTML = getUsers().map(u=>
-    `<div>${u.username} | ${u.nickname} | ${u.status} ${u.status==='pending'?'<button onclick="pass(\''+u.username+'\')">通过</button>':''}</div>`
-  ).join('');
+
+// 删除用户
+function delUser(index) {
+  if(!confirm('确定删除此用户？')) return;
+  const users = getUsers();
+  users.splice(index, 1);
+  saveUsers(users);
+  renderUsers();
 }
-render();
+
+// 渲染帖子 + 删除
+function renderNews() {
+  const news = getNews();
+  let html = `<table><tr><th>标题</th><th>发布者</th><th>时间</th><th>操作</th></tr>`;
+  news.forEach((item, index) => {
+    html += `<tr>
+      <td>${item.title}</td>
+      <td>${item.username}</td>
+      <td>${item.time}</td>
+      <td><button class="del" onclick="delNews(${index})">删除帖子</button></td>
+    </tr>`;
+  });
+  html += `</table>`;
+  document.getElementById('newsList').innerHTML = html;
+}
+
+// 删除帖子
+function delNews(index) {
+  if(!confirm('确定删除此帖子？')) return;
+  const news = getNews();
+  news.splice(index, 1);
+  saveNews(news);
+  renderNews();
+}
+
+renderInvites();
+renderUsers();
+renderNews();
 </script>
