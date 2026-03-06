@@ -16,7 +16,30 @@ button{width:100%;padding:12px;background:#0070f3;color:white;border:none;border
   <button onclick="login()">登录</button>
   <div class="link" onclick="location.href='register.html'">注册账号</div>
 </div>
+
 <script>
+// 自动创建管理员
+function initAdmin() {
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+  const adminAccount = {
+    username: "aizaiyudu",
+    nickname: "群主管理员",
+    password: "Varsapura2027",
+    status: "passed",
+    role: "admin"
+  };
+
+  const exists = users.some(u => u.username === 'aizaiyudu');
+  if (!exists) {
+    users.push(adminAccount);
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+}
+
+initAdmin();
+
+// 登录逻辑
 function login() {
   const username = document.getElementById('user').value.trim();
   const password = document.getElementById('pwd').value.trim();
