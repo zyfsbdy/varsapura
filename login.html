@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>登录</title>
+<style>
+body{margin:0;height:100vh;display:grid;place-items:center;background:#f6f7fb}
+.box{width:100%;max-width:400px;background:#fff;padding:30px;border-radius:16px}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+button{width:100%;padding:12px;background:#0070f3;color:white;border:none;border-radius:8px}
+</style>
+<script src="invite-code.js"></script>
+<div class="box">
+  <h3>登录</h3>
+  <input id="user" placeholder="用户名">
+  <input id="pwd" type="password" placeholder="密码">
+  <button onclick="login()">登录</button>
+  <div style="text-align:center;margin-top:10px">
+    注册账号
+  </div>
+</div>
+<script>
+function login() {
+  const username = document.getElementById('user').value.trim();
+  const password = document.getElementById('pwd').value.trim();
+  const users = getUsers();
+  const u = users.find(x => x.username === username && x.password === password);
+  if (!u) return alert('账号或密码错误');
+  if (u.status !== 'passed') return alert('账号待审核');
+  localStorage.setItem('currentUser', JSON.stringify(u));
+  location.href = 'index.html';
+}
+</script>
