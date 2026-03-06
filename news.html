@@ -14,22 +14,20 @@ body{background:#f5f7fa;color:#333}
   position:sticky;top:0;z-index:10
 }
 .logo{font-size:18px;font-weight:600}
+.right-group{display:flex;gap:8px;align-items:center}
 .back-btn{padding:6px 12px;background:#eee;border:none;border-radius:6px;cursor:pointer}
+.edit-btn{padding:6px 12px;background:#0070f3;color:#fff;border:none;border-radius:6px;cursor:pointer}
 
-.publish-box{
-  max-width:800px;margin:20px auto;padding:0 20px;
+/* 搜索 + 筛选栏 */
+.tool-bar{
+  max-width:800px;margin:20px auto 0;padding:0 20px;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap
 }
-.publish-card{
-  background:#fff;border-radius:12px;padding:20px;
-  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+.search-input{
+  flex:1;min-width:180px;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;
 }
-.publish-card input,
-.publish-card textarea{
-  width:100%;margin-bottom:12px;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;
-}
-.publish-card textarea{min-height:100px;resize:vertical}
-.publish-card button{
-  background:#0070f3;color:#fff;border:none;padding:12px 16px;border-radius:8px;font-weight:500;cursor:pointer
+.tool-bar select{
+  padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;
 }
 
 .container{max-width:800px;margin:0 auto;padding:20px}
@@ -38,13 +36,11 @@ body{background:#f5f7fa;color:#333}
   box-shadow:0 1px 3px rgba(0,0,0,0.04);
 }
 .news-title{font-size:16px;font-weight:600;margin-bottom:8px}
-.news-date{font-size:12px;color:#999;margin-bottom:12px}
+.news-date{font-size:12px;color:#999;margin-bottom:4px;line-height:1.4}
+.news-edit-date{font-size:12px;color:#777;margin-bottom:12px}
 .news-content{font-size:14px;line-height:1.6;color:#555;margin-bottom:14px}
 .news-img{width:100%;border-radius:8px;overflow:hidden;margin-top:10px}
 .news-img img{width:100%;display:block;border-radius:8px}
-.del-btn{
-  margin-top:10px;background:#ff4444;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:12px;cursor:pointer
-}
 </style>
 </head>
 
@@ -52,90 +48,96 @@ body{background:#f5f7fa;color:#333}
 
 <div class="header">
   <div class="logo">📰 最新资讯</div>
-  <button class="back-btn" onclick="location.href='index.html'">返回主页</button>
+  <div class="right-group">
+    <button class="edit-btn" onclick="location.href='edit-news.html'">发布/编辑资讯</button>
+    <button class="back-btn" onclick="location.href='index.html'">返回主页</button>
+  </div>
 </div>
 
-<!-- 发布区域：未来随时发资讯 + 图片 -->
-<div class="publish-box">
-  <div class="publish-card">
-    <input type="text" id="title" placeholder="请输入资讯标题">
-    <textarea id="content" placeholder="请输入资讯内容"></textarea>
-    <input type="file" id="img" accept="image/*">
-    <button onclick="publishNews()">发布资讯</button>
-  </div>
+<!-- 搜索 + 时间筛选 -->
+<div class="tool-bar">
+  <input type="text" class="search-input" id="searchInput" placeholder="搜索标题关键词">
+  <select id="yearSelect">
+    <option value="all">全部年份</option>
+    <option>2025</option>
+    <option>2026</option>
+  </select>
+  <select id="monthSelect">
+    <option value="all">全部月份</option>
+  </select>
 </div>
 
 <div class="container" id="newsList"></div>
 
 <script>
-// 读取资讯
+// 生成月份选项（从2025-10开始）
+function buildMonthOptions() {
+  const ms = document.getElementById('monthSelect');
+  const months = [
+    '2025-10','2025-11','2025-12',
+    '2026-01','2026-02','2026-03','2026-04','2026-05','2026-06',
+    '2026-07','2026-08','2026-09','2026-10','2026-11','2026-12'
+  ];
+  months.forEach(ym => {
+    const opt = document.createElement('option');
+    opt.value = ym;
+    opt.textContent = ym;
+    ms.appendChild(opt);
+  });
+}
+
 function getNews() {
-  return JSON.parse(localStorage.getItem('newsList') || '[]')
+  return JSON.parse(localStorage.getItem('newsList') || '[]');
 }
 
-// 保存资讯
-function saveNews(list) {
-  localStorage.setItem('newsList', JSON.stringify(list))
-}
-
-// 发布资讯（支持图片）
-function publishNews() {
-  const title = document.getElementById('title').value.trim()
-  const content = document.getElementById('content').value.trim()
-  const imgFile = document.getElementById('img').files[0]
-
-  if (!title || !content) {
-    alert('请填写标题和内容')
-    return
-  }
-
-  const newsItem = {
-    id: Date.now(),
-    title: title,
-    content: content,
-    date: new Date().toLocaleString(),
-    img: imgFile ? URL.createObjectURL(imgFile) : ''
-  }
-
-  const newsList = getNews()
-  newsList.unshift(newsItem)
-  saveNews(newsList)
-
-  document.getElementById('title').value = ''
-  document.getElementById('content').value = ''
-  document.getElementById('img').value = ''
-  renderNews()
-}
-
-// 渲染资讯
 function renderNews() {
-  const list = getNews()
-  const container = document.getElementById('newsList')
+  const list = getNews();
+  const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+  const year = document.getElementById('yearSelect').value;
+  const month = document.getElementById('monthSelect').value;
 
-  container.innerHTML = list.map(item => `
+  let result = list;
+
+  // 搜索标题
+  if (keyword) {
+    result = result.filter(item =>
+      (item.title || '').toLowerCase().includes(keyword)
+    );
+  }
+
+  // 年份筛选
+  if (year !== 'all') {
+    result = result.filter(item =>
+      (item.publishDate || '').startsWith(year)
+    );
+  }
+
+  // 月份筛选
+  if (month !== 'all') {
+    result = result.filter(item =>
+      (item.publishDate || '').startsWith(month)
+    );
+  }
+
+  const container = document.getElementById('newsList');
+  container.innerHTML = result.map(item => `
     <div class="news-card">
       <div class="news-title">${item.title}</div>
-      <div class="news-date">${item.date}</div>
+      <div class="news-date">发布时间：${item.publishDate}</div>
+      <div class="news-edit-date">最后编辑：${item.editDate}</div>
       <div class="news-content">${item.content}</div>
-      ${item.img ? `
-      <div class="news-img">
-        < img src="${item.img}">
-      </div>
-      ` : ''}
-      <button class="del-btn" onclick="delNews(${item.id})">删除这条资讯</button>
+      ${item.img ? `<div class="news-img">< img src="${item.img}"></div>` : ''}
     </div>
-  `).join('')
+  `).join('');
 }
 
-// 删除资讯
-function delNews(id) {
-  let list = getNews()
-  list = list.filter(item => item.id !== id)
-  saveNews(list)
-  renderNews()
-}
+// 监听
+document.getElementById('searchInput').addEventListener('input', renderNews);
+document.getElementById('yearSelect').addEventListener('change', renderNews);
+document.getElementById('monthSelect').addEventListener('change', renderNews);
 
-renderNews()
+buildMonthOptions();
+renderNews();
 </script>
 
 </body>
