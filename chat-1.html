@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>主群聊天记录</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;scroll-behavior:smooth;}
+.container{width:95%;max-width:1000px;margin:0 auto;}
+nav{background:#2c3e50;padding:15px 0;position:sticky;top:0;z-index:99;}
+.nav-box{display:flex;justify-content:space-between;align-items:center;}
+.logo{color:#fff;font-size:22px;font-weight:bold;}
+.menu{display:flex;list-style:none;gap:30px;}
+.menu a{color:#fff;text-decoration:none;font-size:16px;transition:color 0.2s;}
+.menu a:hover{color:#3498db;}
+
+.search-bar{background:#f8f9fa;padding:15px 0;border-bottom:1px solid #eee;}
+.search-box{max-width:700px;margin:0 auto;position:relative;}
+.search-box input{width:100%;padding:12px 20px 12px 45px;border:1px solid #ddd;border-radius:30px;font-size:15px;outline:none;transition:all 0.2s;}
+.search-box input:focus{border-color:#3498db;box-shadow:0 0 0 3px rgba(52,152,219,0.15);}
+.search-box .icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:18px;color:#888;}
+
+.group-title{padding:30px 0;text-align:center;}
+.group-title h1{font-size:26px;color:#2c3e50;}
+
+.chat-content{padding:20px;background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);margin-bottom:60px;line-height:1.8;font-size:15px;}
+.chat-item{margin:12px 0;}
+.chat-item img{max-width:100%;max-height:300px;border-radius:8px;margin:5px 0;}
+
+.bottom-links{text-align:center;padding:20px;background:#f8f9fa;}
+.bottom-links a{margin:0 12px;text-decoration:none;color:#2c3e50;font-weight:bold;}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:20px 0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-box">
+    <div class="logo">Varsapura交流群</div>
+    <ul class="menu">
+      <li>主页</li>
+      <li>群规</li>
+      <li>资料</li>
+      <li>公告</li>
+      <li>群聊记录</li>
+      <li>联系管理</li>
+    </ul>
+  </div>
+</nav>
+
+<div class="search-bar">
+  <div class="container">
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="搜索全站（含图片说明）..." id="searchInput">
+    </div>
+  </div>
+</div>
+
+<div class="group-title">
+  <div class="container"><h1>📂 Varsapura雨之城主群</h1></div>
+</div>
+
+<div class="container">
+  <div class="chat-content" id="content">
+
+    <!-- 你在这里填聊天内容 + 图片 -->
+    <div class="chat-item">
+      <strong>群主：</strong>大家好<br>
+      < img src="https://picsum.photos/600/300" alt="">
+      <!-- 搜索说明：写图片里的关键词 -->
+      <div style="display:none">关键词：雨之城 剧情 角色</div>
+    </div>
+
+    <div class="chat-item">
+      <strong>成员A：</strong>这张截图是任务界面<br>
+      < img src="https://picsum.photos/600/301" alt="">
+      <div style="display:none">关键词：任务 界面 截图</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-links">
+  主页
+  群规
+  资料
+  公告
+  群聊记录
+  联系管理
+</div>
+
+<footer>
+  <div class="container"><p>© 2026 Varsapura交流群</p ></div>
+</footer>
+
+<script>
+const s = document.getElementById('searchInput');
+s.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const v = s.value.trim();
+    if(v) location.href='search.html?kw='+encodeURIComponent(v);
+  }
+});
+</script>
+</body>
+</html>
